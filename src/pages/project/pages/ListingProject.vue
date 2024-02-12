@@ -3,9 +3,10 @@
     lang="ts"
 >
 import {ref}            from 'vue';
-import {ProjectService} from '../client';
+import {ProjectService} from '../../../client';
+import { IProject } from '../project.type';
 
-const projects = ref([]);
+const projects = ref<IProject[]>([]);
 const loading  = ref<boolean>(true);
 ProjectService
     .apiProjectsGetCollection(1)

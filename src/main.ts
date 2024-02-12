@@ -5,8 +5,8 @@ import {
 }                     from 'vue-router';
 import App            from './App.vue';
 import Home           from './components/Home.vue';
-import ListingProject from './components/ListingProject.vue';
-import ListingUser    from './components/ListingUser.vue';
+import ListingProject from './pages/project/pages/ListingProject.vue';
+import ListingUser    from './pages/user/pages/ListingUser.vue';
 import './style.css';
 
 const routes = [

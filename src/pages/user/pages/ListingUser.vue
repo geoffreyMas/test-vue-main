@@ -3,9 +3,10 @@
     lang="ts"
 >
 import {ref}         from 'vue';
-import {UserService} from '../client';
+import {UserService} from '../../../client';
+import { IUser } from '../user.type';
 
-const users   = ref([]);
+const users   = ref<IUser[]>([]);
 const loading = ref<boolean>(true);
 UserService
     .apiUsersGetCollection(1)
