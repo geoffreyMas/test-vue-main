@@ -1,0 +1,50 @@
+#app-header {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 10;
+
+  #header-container {
+    background-color: white;
+    border-bottom: solid 1px lightgray;
+    padding: 8px 0px;
+    min-height: 70px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+    #header-container-logo {
+      position: static;
+      text-align: left;
+      width: auto;
+      display: flex;
+      align-items: center;
+
+      a {
+          margin-left: 12px;
+          color: #42d392;
+      }
+
+      a:hover {
+          color: #42b883;
+      }
+      
+
+      #logo {
+        width: 40px;
+        height: 40px;
+        margin-left: 16px;
+      }
+    }
+
+    #header-container-login {
+      position: static;
+      display: flex;
+      width: 16%;
+      align-items: center;
+      justify-content: flex-end;
+      margin-right: 16px;
+    }
+  }
+}

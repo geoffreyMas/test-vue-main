@@ -1,13 +1,13 @@
 <script
-    setup
-    lang="ts"
+  setup
+  lang="ts"
 >
 import {marked}   from 'marked';
 import {computed} from 'vue';
 
 
 const MARKDOWN = `
-# test technique Vue3
+# Test technique Vue3
 
 ## Prérequis
 1. Installer node + npm

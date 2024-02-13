@@ -1,17 +1,54 @@
+<script setup lang="ts">
+import { RouterView } from 'vue-router';
+import HeaderApp from './components/HeaderApp.vue';
+</script>
+
 <template>
-  <h1>Test Kalitics</h1>
-  <p class="router-links">
-    <router-link to="/">Acceuil</router-link>
-    <router-link to="/projects">Chantiers</router-link>
-    <router-link to="/users">Collaborateurs</router-link>
-  </p>
-  <router-view></router-view>
+  <div class="main">
+    <div class="app-container">
+      <HeaderApp></HeaderApp>
+      <div id="app-nav">
+        <div id="app-content">
+          <RouterView class="app-content-route" />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
-<style scoped>
-.router-links *
-{
-  margin-left  : 5px;
-  margin-right : 5px;
+<style scoped lang="scss">
+
+.main {
+  top: 0px;
+}
+
+#app-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+  #app-nav {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+
+    #app-content {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      flex: 1;
+
+      .app-content-route {
+        position: absolute;
+        top: 70px;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
 }
 </style>
