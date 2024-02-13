@@ -1,25 +1,29 @@
 #add_wrapper_content {
-    padding: 0 24px;
-    #add_header {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      #add_title {
-        text-align: center;
-      }
-    }
-    .error-message {
-      color: crimson;
+  padding: 0 24px;
+  background-color: lightgrey;
+  border-radius: 16px;
+  #add_header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    #add_title {
+      text-align: center;
     }
   }
+  .error-message {
+    color: crimson;
+  }
+
   #add-pointing-form {
     margin-top: 12px;
-  
+
     .pointing-container {
       display: flex;
       .pointing-label {
-        margin-bottom: 8px;
+        text-align: left;
+        font-weight: 500;
+        margin-bottom: 12px;
       }
       .pointing-input-container {
         margin-left: 12px;
@@ -80,8 +84,16 @@
     }
     .pointing-input {
       margin-bottom: 8px;
+      width: 250px;
+      height: 25px;
+      border-radius: 4px;
+      background: #F9F9F9;
+      padding: 1px 2px;
+      font-size: 16px;
     }
     #pointing-submit {
       border-radius: 2px;
+      margin-bottom: 32px;
     }
   }
+}

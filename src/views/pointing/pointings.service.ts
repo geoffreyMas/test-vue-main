@@ -5,7 +5,7 @@ import { rootStore } from "../../main";
 
 const pointingsService = {
   // get pointings collections
-  getPointings(page: number): Promise<IPointings[]>{
+  getPointings(page: number): Promise<IPointings[]> {
     return new Promise((resolve, reject) => {
       ClockingService
         .apiClockingsGetCollection(page)
@@ -15,7 +15,7 @@ const pointingsService = {
     })
   },
   //get user Collection
-  getUserInfos(): Promise<IUser[]>{
+  getUserInfos(): Promise<IUser[]> {
     return new Promise((resolve, reject) => {
       UserService
       .apiUsersGetCollection()
@@ -26,7 +26,7 @@ const pointingsService = {
     })
   },
   //get user Collection
-  getProjectInfos(): Promise<IProject[]>{
+  getProjectInfos(): Promise<IProject[]> {
     return new Promise((resolve, reject) => {
       ProjectService
       .apiProjectsGetCollection()
@@ -35,6 +35,15 @@ const pointingsService = {
         resolve(response);
       });
     })
+  },
+  // Add a pointing for a user
+  addPointing(pointing: IPointings): Promise<IPointings> {
+    return new Promise((resolve, reject) => {
+      ClockingService.apiClockingsPost(pointing)
+      .then((response): void => {
+        resolve(response);
+      });
+    });
   },
 };
 

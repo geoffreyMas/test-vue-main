@@ -4,8 +4,8 @@
 >
 import router from '../../../router';
 import {onMounted, ref} from 'vue';
-import PointingsService from '../pointings.service'
-import { IPointings } from '../pointings.type'
+import PointingsService from '../pointings.service';
+import { IPointings } from '../pointings.type';
 import LoadingAnim from '../../../components/LoadingAnim.vue';
 import { rootStore } from '../../../main';
 

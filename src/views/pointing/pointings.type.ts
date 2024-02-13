@@ -1,5 +1,5 @@
 export interface IPointings {
-  clockingProject: string;
+  clockingProject?: string;
   clockingUser: string;
   dateEnd: string;
   dateStart: string;

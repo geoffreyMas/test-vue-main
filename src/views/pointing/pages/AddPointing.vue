@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { rootStore } from '../../../main';
+import PointingsService from '../pointings.service';
+import { IPointings } from '../pointings.type';
+import router from '../../../router';
 
 const showError = ref(false);
 const isLoading = ref(false);
+const newPointing = ref({} as IPointings)
 
 // Props //
 
@@ -22,7 +26,14 @@ const getTitle = computed<string>(() => {
 // Methods //
 
 const submitForm = () => {
-  console.log('submit');
+  const startDate = new Date(newPointing.value.dateStart);
+  const endDate = new Date(startDate.getTime() + (parseInt(newPointing.value.dateEnd) * 3600 * 1000));
+  newPointing.value.dateStart = startDate.toISOString();
+  newPointing.value.dateEnd = endDate.toISOString();
+  PointingsService.addPointing(newPointing.value)
+  .then((response): void => {
+    router.push({name: 'pointings'});
+  });
 }
 
 // Watcher //
@@ -45,34 +56,38 @@ const submitForm = () => {
           <div class="pointing-input-container">
             <div class="pointing-bloc-select">
               <div class="select">
-                <select>
+                <select v-model="newPointing.clockingUser">
                   <option value="choisir"> Choisir un collaborateur</option>
-                  <option  v-for="user in rootStore.userCollection" :key="user.id">{{user.lastName}}</option>
+                  <option  v-for="user in rootStore.userCollection" :key="user.id" :value="'/users/' + user.id">{{user.lastName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="pointing-bloc-select">
+              <div class="select">
+                <select v-model="newPointing.clockingProject">
+                  <option value="choisir"> Choisir un chantier</option>
+                  <option  v-for="project in rootStore.projectCollection" :key="project.id" :value="'/projects/' + project.id">{{project.name}}</option>
                 </select>
               </div>
             </div>
             <div>
-              <div class="pointing-label">Chantier :</div>
+              <div class="pointing-label">Renseigner une date :</div>
               <input
-                autocomplete="off"
-                name="project"
-                rules="required"
-                class="pointing-input"
-              />
-            </div>
-            <div>
-              <div class="pointing-label">Date :</div>
-              <input
+                v-model="newPointing.dateStart"
                 autocomplete="off"
                 name="date"
+                type="date"
                 rules="required"
                 class="pointing-input"
               />
             </div>
             <div>
-              <div class="pointing-label">Durée :</div>
+              <div class="pointing-label">Renseigner une durée :</div>
               <input
+                v-model="newPointing.dateEnd"
                 autocomplete="off"
+                type="number"
+                max="10"
                 name="duration"
                 rules="required"
                 class="pointing-input"
