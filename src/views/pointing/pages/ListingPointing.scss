@@ -57,7 +57,8 @@
   }
   
   #table-container {
-    border: 5px rgb(1, 73, 49) groove;
+    border: 8px rgb(31, 159, 116) groove;
+    border-radius: 6px;
     display: inline-block;
     overflow-y: scroll;
     height: calc(100% - 190px);

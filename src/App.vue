@@ -5,9 +5,9 @@ import HeaderApp from './components/HeaderApp.vue';
 
 <template>
   <div class="app-container">
-    <HeaderApp></HeaderApp>
     <div id="app-nav">
       <div id="app-content">
+        <HeaderApp></HeaderApp>
         <RouterView class="app-content-route" />
       </div>
     </div>
@@ -15,10 +15,6 @@ import HeaderApp from './components/HeaderApp.vue';
 </template>
 
 <style scoped lang="scss">
-
-.main {
-  top: 0px;
-}
 
 #app-container {
   width: 100%;

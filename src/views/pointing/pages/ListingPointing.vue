@@ -2,6 +2,7 @@
     setup
     lang="ts"
 >
+import router from '../../../router';
 import {onMounted, ref} from 'vue';
 import PointingsService from '../pointings.service'
 import { IPointings } from '../pointings.type'
@@ -40,6 +41,7 @@ onMounted(() => {
 
 // Methods //
 
+// Method to call the next page of pointings
 const callNextPage = () => {
   if (pointingsCollection.value.length === 30) {
     page.value += 1;
@@ -56,6 +58,7 @@ const callNextPage = () => {
   }
 };
 
+// Method to call the previous page of pointings
 const callPreviousPage = () => {
   if (page.value > 1) {
     page.value -= 1;
@@ -78,6 +81,11 @@ const selectOnClick = (id: number) => {
   activeItem.value = id;
 };
 
+// Method to redirect to the page to add a pointing
+const addPointing = () => {
+  router.push({name: 'add-pointings'})
+}
+
 // Watcher //
 
 </script>
@@ -87,7 +95,7 @@ const selectOnClick = (id: number) => {
   <div v-else id="table-content">
     <div id="table-title">
       <h2>Listing des Pointages</h2>
-      <button id="add-button" class="page-button">Ajouter Pointage</button>
+      <button @click="addPointing()" id="add-button" class="page-button">Ajouter Pointage</button>
     </div>
     <div id="table-container">
       <table id="table">

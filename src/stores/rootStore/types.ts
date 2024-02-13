@@ -1,17 +1,3 @@
-// RootState
-
-export interface RootState {
-  modalComponent: IModal;
-}
-
-// Modal
-
-export interface IModal {
-  showModal: boolean;
-  id?: string;
-  data?: any;
-}
-
 // Project
 
 export interface IProject {
