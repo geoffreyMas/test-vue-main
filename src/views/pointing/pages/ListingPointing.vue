@@ -41,12 +41,10 @@ onMounted(() => {
 // Methods //
 
 const callNextPage = () => {
-  loading.value = true;
   if (pointingsCollection.value.length === 30) {
     page.value += 1;
     PointingsService.getPointings(page.value)
     .then((response) => {
-      loading.value = false;
       pointingsCollection.value = response;
       if (pointingsCollection.value.length < 30) {
         nextDisabled.value = true;
@@ -59,12 +57,10 @@ const callNextPage = () => {
 };
 
 const callPreviousPage = () => {
-  loading.value = true;
   if (page.value > 1) {
     page.value -= 1;
     PointingsService.getPointings(page.value)
     .then((response) => {
-      loading.value = false;
       pointingsCollection.value = response;
       if (pointingsCollection.value.length === 30) {
         nextDisabled.value = false;
@@ -89,6 +85,7 @@ const selectOnClick = (id: number) => {
 <template>
   <LoadingAnim v-if="loading"/>
   <div v-else id="table-content">
+    <h2>Listing des Pointages</h2>
     <div id="table-container">
       <table id="table">
         <thead>
@@ -109,15 +106,27 @@ const selectOnClick = (id: number) => {
           >
             <td>{{ rootStore.getUserNameById(pointing.clockingUser) }}</td>
             <td>{{ rootStore.getProjectNameById(pointing.clockingProject) }}</td>
-            <td>{{ pointing.dateStart }}</td>
-            <td>{{ pointing.dateEnd }}</td>
+            <td>{{ new Date(pointing.dateStart).toLocaleDateString() }}</td>
+            <td>{{ Date.parse(pointing.dateEnd) - Date.parse(pointing.dateStart)}}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div>
-      <button :disabled="previousDisabled" @click="callPreviousPage">Préc</button>
-      <button :disabled="nextDisabled" @click="callNextPage">Suiv</button>
+      <button
+        class="page-button"
+        :disabled="previousDisabled"
+        @click="callPreviousPage"
+      >
+        Précédent
+      </button>
+      <button
+        class="page-button"
+        :disabled="nextDisabled"
+        @click="callNextPage"
+      >
+        Suivant
+      </button>
     </div>
   </div>
 </template>
