@@ -32,9 +32,18 @@ const pointingsService = {
       .apiProjectsGetCollection()
       .then((response): void => {
         rootStore.projectCollection = response;
-        resolve(response);
+        resolve(response as IPointings[]);
       });
     })
+  },
+  // Get user pointings Collection
+  getUserPointingCollection(id: string): Promise<IPointings[]> {
+    return new Promise((resolve, reject) => {
+      ClockingService.apiUsersIdclockingsFormatGetCollection(id)
+      .then((response): void => {
+        resolve(response);
+      });
+    });
   },
   // Add a pointing for a user
   addPointing(pointing: IPointings): Promise<IPointings> {

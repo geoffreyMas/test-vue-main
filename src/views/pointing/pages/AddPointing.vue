@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { rootStore } from '../../../main';
 import PointingsService from '../pointings.service';
 import { IPointings } from '../pointings.type';
 import router from '../../../router';
 
-const showError = ref(false);
-const isLoading = ref(false);
-const newPointing = ref({} as IPointings)
+const showErrorTime = ref(false);
+const isValidate = ref(true);
+const newPointing = ref({} as IPointings);
+const userPointings = ref([] as IPointings[]);
 
 // Props //
 
@@ -37,6 +38,41 @@ const submitForm = () => {
 }
 
 // Watcher //
+
+watch(() => newPointing.value.clockingUser, 
+(newVal) => {
+  const id = newVal?.split('/')[2];
+  if (id) {
+    PointingsService.getUserPointingCollection(id)
+    .then((response): void => {
+      userPointings.value = response;
+    });
+  }
+});
+
+watch(() => newPointing.value.clockingProject, 
+(newVal) => {
+  const hasPointingOnProject = userPointings.value.filter((pointing) => pointing.clockingProject === newVal);
+  if (hasPointingOnProject.length > 0) {
+    console.log('déjà un chantier');
+    // check la date
+  }
+});
+
+watch(() => newPointing.value.dateStart, 
+(newVal) => {
+  console.log(newVal);
+  // check si y'a des chantier à cette date
+});
+
+watch(() => newPointing.value.dateEnd, 
+(newVal) => {
+  if (parseInt(newVal) < 0 || parseInt(newVal) > 10) {
+    showErrorTime.value = true;
+  } else {
+    showErrorTime.value = false;
+  }
+});
 
 </script>
 
@@ -91,15 +127,15 @@ const submitForm = () => {
                 name="duration"
                 rules="required"
                 class="pointing-input"
-              />
+              /><br/>
+              <label v-if="showErrorTime" class="error-message">Le temps de travail ne peut pas dépasser 10 heures</label>
             </div>
           </div>
         </div>
-        <span v-if="showError" class="error-message">Error</span>
         <br/>
         <button 
           id="pointing-submit"
-          :disabled="isLoading"
+          :disabled="isValidate"
         >
         Ajouter
         </button>
