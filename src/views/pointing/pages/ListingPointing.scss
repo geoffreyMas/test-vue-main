@@ -4,13 +4,25 @@
   margin-top: 8%;
   overflow: hidden;
 
+  #table-title {
+    display: flex;
+    justify-content: space-between;
+
+    #add-button {
+      margin-bottom: 8px;
+      margin-top: 20px;
+      font-size: 14px;
+      height: 40px;
+    }
+  }
+
   .page-button {
     background-color: rgba(3, 175, 118, 0.58);
     border-radius: 12px;
     color: #000;
     cursor: pointer;
     font-weight: bold;
-    padding: 4px 8px;
+    padding: 6px 12px;
     margin-left: 12px;
     text-align: center;
     transition: 200ms;

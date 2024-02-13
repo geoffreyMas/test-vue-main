@@ -85,7 +85,10 @@ const selectOnClick = (id: number) => {
 <template>
   <LoadingAnim v-if="loading"/>
   <div v-else id="table-content">
-    <h2>Listing des Pointages</h2>
+    <div id="table-title">
+      <h2>Listing des Pointages</h2>
+      <button id="add-button" class="page-button">Ajouter Pointage</button>
+    </div>
     <div id="table-container">
       <table id="table">
         <thead>
@@ -106,8 +109,8 @@ const selectOnClick = (id: number) => {
           >
             <td>{{ rootStore.getUserNameById(pointing.clockingUser) }}</td>
             <td>{{ rootStore.getProjectNameById(pointing.clockingProject) }}</td>
-            <td>{{ new Date(pointing.dateStart).toLocaleDateString() }}</td>
-            <td>{{ Date.parse(pointing.dateEnd) - Date.parse(pointing.dateStart)}}</td>
+            <td>{{ rootStore.getFormatedDate(pointing.dateStart) }}</td>
+            <td>{{ Date.parse(pointing.dateEnd) - Date.parse(pointing.dateStart)}} heures</td>
           </tr>
         </tbody>
       </table>

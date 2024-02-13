@@ -33,7 +33,19 @@ const getProjectNameById: ComputedRef<(value: string) => string> = computed(() =
   };
 });
 
+// return formated date
+const getFormatedDate: ComputedRef<(value: string) => string> = computed(() => {
+  return (value: string) => {
+    const date = new Date(value);
+    const hours = date.getHours() < 10 ? '0' + date.getHours().toString() : date.getHours().toString();
+    const minutes = date.getMinutes() < 10 ? '0' + date.getMinutes().toString() : date.getMinutes().toString();
+    const formatedDate = date.toLocaleDateString() + ' : ' + hours + ':' + minutes;
+    return formatedDate;
+  };
+});
+
 export {
   getUserNameById,
   getProjectNameById,
+  getFormatedDate,
 };
