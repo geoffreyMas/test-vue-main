@@ -4,13 +4,11 @@ import HeaderApp from './components/HeaderApp.vue';
 </script>
 
 <template>
-  <div class="main">
-    <div class="app-container">
-      <HeaderApp></HeaderApp>
-      <div id="app-nav">
-        <div id="app-content">
-          <RouterView class="app-content-route" />
-        </div>
+  <div class="app-container">
+    <HeaderApp></HeaderApp>
+    <div id="app-nav">
+      <div id="app-content">
+        <RouterView class="app-content-route" />
       </div>
     </div>
   </div>
@@ -36,6 +34,7 @@ import HeaderApp from './components/HeaderApp.vue';
     flex-direction: row;
 
     #app-content {
+      width: 100%;
       position: relative;
       display: flex;
       flex-wrap: wrap;

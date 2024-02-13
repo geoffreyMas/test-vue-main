@@ -6,7 +6,7 @@
   z-index: 10;
 
   #header-container {
-    background-color: white;
+    background-color: rgb(215, 210, 210);
     border-bottom: solid 1px lightgray;
     padding: 8px 0px;
     min-height: 70px;
@@ -36,6 +36,42 @@
         height: 40px;
         margin-left: 16px;
       }
+
+      .tab-button {
+        background-color: rgba(3, 175, 118, 0.58);
+        border-radius: 12px;
+        color: #000;
+        cursor: pointer;
+        font-weight: bold;
+        padding: 4px 8px;
+        margin-left: 12px;
+        text-align: center;
+        transition: 200ms;
+        box-sizing: border-box;
+        border: 0;
+        font-size: 12px;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+      
+      .tab-button:not(:disabled):hover,
+      .tab-button:not(:disabled):focus {
+        outline: 0;
+        background: rgba(2, 198, 132, 0.799);
+        color: white;
+        box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+      }
+      
+      .tab-button:disabled {
+        filter: saturate(0.2) opacity(0.5);
+        -webkit-filter: saturate(0.2) opacity(0.5);
+        cursor: not-allowed;
+      }
+      button {
+        margin-top: 10px;
+        margin-left: 8px;
+      }
     }
 
     #header-container-login {
@@ -45,6 +81,20 @@
       align-items: center;
       justify-content: flex-end;
       margin-right: 16px;
+
+      #right-side-profil-menu {
+        background-color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        border: 1px solid rgb(155, 154, 154);
+        padding: 14px 6px 6px 10px;
+        display: flex;
+
+        &.blocked {
+          pointer-events: none;
+        }
+      }
     }
   }
 }
