@@ -6,7 +6,8 @@ import { IPointings } from '../pointings.type';
 import router from '../../../router';
 
 const showErrorTime = ref(false);
-const isValidate = ref(true);
+const showErrorWeek = ref(false);
+const showErrorHasWork = ref(false);
 const newPointing = ref({} as IPointings);
 const userPointings = ref([] as IPointings[]);
 
@@ -39,6 +40,7 @@ const submitForm = () => {
 
 // Watcher //
 
+// Watcher to call user infos on user selection
 watch(() => newPointing.value.clockingUser, 
 (newVal) => {
   const id = newVal?.split('/')[2];
@@ -50,21 +52,27 @@ watch(() => newPointing.value.clockingUser,
   }
 });
 
-watch(() => newPointing.value.clockingProject, 
+// Watcher to check if the user has already work the day selected
+// The second part check if the user exceed the 40 hours of work a week
+watch(() => newPointing.value.dateStart, 
 (newVal) => {
-  const hasPointingOnProject = userPointings.value.filter((pointing) => pointing.clockingProject === newVal);
+  const newDate = new Date(newVal);
+  const hasPointingOnProject = userPointings.value.filter(
+    (pointing) => pointing.clockingProject === newPointing.value.clockingProject
+  );
   if (hasPointingOnProject.length > 0) {
-    console.log('déjà un chantier');
-    // check la date
+    const hasAlreadyWork = hasPointingOnProject.filter(
+      (pointing) => new Date(pointing.dateStart.split('T')[0]).getTime() === newDate.getTime()
+    );
+    if(hasAlreadyWork.length > 0) {
+      showErrorHasWork.value = true;
+    } else {
+      showErrorHasWork.value = false;
+    }
   }
 });
 
-watch(() => newPointing.value.dateStart, 
-(newVal) => {
-  console.log(newVal);
-  // check si y'a des chantier à cette date
-});
-
+// Watcher to check the work duration don't exceed 10 hours a day
 watch(() => newPointing.value.dateEnd, 
 (newVal) => {
   if (parseInt(newVal) < 0 || parseInt(newVal) > 10) {
@@ -106,7 +114,7 @@ watch(() => newPointing.value.dateEnd,
                 </select>
               </div>
             </div>
-            <div>
+            <div v-if="newPointing.clockingUser && newPointing.clockingProject">
               <div class="pointing-label">Renseigner une date :</div>
               <input
                 v-model="newPointing.dateStart"
@@ -115,9 +123,10 @@ watch(() => newPointing.value.dateEnd,
                 type="date"
                 rules="required"
                 class="pointing-input"
-              />
+              /><br/>
+              <label v-if="showErrorHasWork" class="error-message">Le collaborateur est déjà déclaré ce jour</label>
             </div>
-            <div>
+            <div v-if="newPointing.clockingUser && newPointing.clockingProject">
               <div class="pointing-label">Renseigner une durée :</div>
               <input
                 v-model="newPointing.dateEnd"
@@ -135,7 +144,7 @@ watch(() => newPointing.value.dateEnd,
         <br/>
         <button 
           id="pointing-submit"
-          :disabled="isValidate"
+          :disabled="showErrorTime || showErrorHasWork || showErrorWeek"
         >
         Ajouter
         </button>
