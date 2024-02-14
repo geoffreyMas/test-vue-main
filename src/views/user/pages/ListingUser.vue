@@ -35,24 +35,33 @@ UserService
 
 <template>
   <LoadingAnim v-if="loading"/>
-  <div v-else class="table-content">
-    <table>
-      <thead>
-        <tr>
-          <th>Prénom</th>
-          <th>Nom</th>
-          <th>Matricule</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-            v-for="user in users"
-        >
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.lastName }}</td>
-          <td>{{ user.matricule }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div v-else id="table-content">
+    <div id="table-title">
+      <h2>Listing des Collaborateurs</h2>
+    </div>
+    <div id="table-container">
+      <table id="table">
+        <thead>
+          <tr>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Matricule</th>
+          </tr>
+        </thead>
+        <tbody d="table-body">
+          <tr
+              v-for="user in users"
+          >
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.matricule }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+@import './ListingUser';
+</style>
